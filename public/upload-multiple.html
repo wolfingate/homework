@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <form name="form1" style="display: none;">
+                    <div class="form-group">
+                        <label for="myphoto">Example file input</label>
+                        <input type="file" 
+                         accept="image/*"
+                         multiple
+                        class="form-control-file" 
+                        id="myphoto" name="myphoto">
+                    </div>
+                    
+                </form>
+                <button onclick="myphoto.click()" class="btn btn-primary">點選上傳多個圖檔</button>
+                
+                
+
+            </div>
+            <div id="imgs">
+                
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery-3.5.1.js"></script>
+    <script src="bootstrap/js/bootstrap.bundle.js"></script>
+    <script>
+        function formCheck() {
+            const fd = new FormData(document.form1);
+            fetch('/try-upload-multiple', {
+                method: 'POST',
+                body: fd
+            })
+                .then(r => r.json())
+                .then(ar => {
+                    console.log(ar);
+                    const imgs = $('#imgs');
+
+                    ar.forEach(f=>{
+                imgs.append(`<div><img src="/img-uploads/${f.filename}" alt=""></div>`)
+                })
+            })
+
+            return false;
+        }
+
+        myphoto.addEventListener('change', formCheck);
+    </script>
+</body>
+
+</html>

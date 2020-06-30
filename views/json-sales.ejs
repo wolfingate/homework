@@ -1,0 +1,28 @@
+<%- include('parts/html-head') %> 
+<%- include('parts/navbar') %> 
+
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">員工編號</th>
+            <th scope="col">姓名</th>
+            <th scope="col">年齡</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let i in sales){ %>  
+          <tr>
+            <td><%= sales[i].id %></td>
+            <td><%= sales[i].name %></td>
+            <td><%= sales[i].age %></td>
+          </tr>
+        <% } %>
+        </tbody>
+      </table>
+</div>
+
+<%- include('parts/scripts') %>
+<%- include('parts/html-foot') %>

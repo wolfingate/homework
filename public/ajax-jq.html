@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
+    <title>Document</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <form name="form1" method="post" onsubmit="return formCheck()">
+                <div class="form-group">
+                    <label for="email">email</label>
+                    <input type="text" class="form-control" id="email" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">password</label>
+                    <input type="text" class="form-control" id="password" name="password">
+                </div>
+                <input type="submit" class="btn btn-primary">
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery-3.5.1.js"></script>
+<script src="bootstrap/js/bootstrap.bundle.js"></script>
+<script>
+    function formCheck(){
+        $.post(
+            '/try-post',
+            $(document.form1).serialize(),
+            function(data){
+                console.log(data);
+        }, 'json')
+        return false;
+    }
+
+</script>
+</body>
+</html>

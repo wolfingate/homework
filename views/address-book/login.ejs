@@ -1,0 +1,43 @@
+<%- include('../parts/html-head') %>
+<%- include('../parts/navbar') %>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <form method="post" name = 'form1' onsubmit="return formCheck()">
+                <div class="form-group">
+                    <label for="account">帳號</label>
+                    <input type="text" class="form-control" id="account" name="account">
+                </div>
+                <div class="form-group">
+                    <label for="password">密碼</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+
+                <button type="submit" class="btn btn-primary">登入</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../parts/scripts') %>
+
+
+<script>
+    function formCheck() {
+        $.post('/address-book/login',
+        $(document.form1).serialize(),
+        function (data) {
+            if (data.success) {
+                 location.href = '/address-book/list';
+             } else {
+                 alert(data.info);
+             }
+            },'json');
+        return false;
+    }
+    
+</script>
+
+<%- include('../parts/html-foot') %>

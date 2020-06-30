@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="info"></div>
+
+
+<script>
+    function func(msec) {
+        return new Promise((resolve, reject)=>{
+            setTimeout(function(){
+                resolve(Math.random()*msec)
+            }, msec)
+        })
+    }
+
+    async function doSomething() {
+        console.log('1');
+        const ar = [];
+        ar.push(await func(600));
+        console.log('2');
+        ar.push(await func(700));
+        ar.push(await func(800));
+        console.log('3');
+        return ar;
+        //info.innerHTML = JSON.stringify(ar)
+    }
+
+    doSomething()
+        .then(a=>{
+            info.innerHTML = JSON.stringify(a)
+        })
+
+
+    // const br = doSomething();
+    // console.log('br:', br);
+
+
+</script>
+
+</body>
+</html>

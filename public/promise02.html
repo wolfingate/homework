@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="info"></div>
+
+
+<script>
+    function func(msec) {
+        return new Promise((resolve, reject)=>{
+            setTimeout(function(){
+                resolve(Math.random()*msec)
+            }, msec)
+        })
+    }
+
+    function doSomething() {
+        console.log('1');
+        const ar = [];
+        func(600)
+            .then(r => {
+                console.log('2');
+                ar.push(r)
+                return func(700)
+            })
+            .then(r => {
+                ar.push(r)
+                return func(800)
+            })
+            .then(r => {
+                ar.push(r)
+                //info.innerHTML += JSON.stringify(ar);
+                return ar;
+            })
+        console.log('3');
+
+    }
+
+    const br = doSomething();
+    console.log('br:', br);
+
+
+</script>
+
+</body>
+</html>

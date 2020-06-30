@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button onclick="doAjax()">doAjax</button>
+<div id="info"></div>
+<button>test click</button>
+<input type="text" name="fgdf">
+<script>
+
+    function doAjax(){
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function(event){
+            console.log(xhr.status, xhr.readyState)
+        }
+        //xhr.open('GET', '/pending', true) // 非同步
+        xhr.open('GET', '/pending', false) // 同步
+        xhr.send();
+    }
+</script>
+</body>
+</html>

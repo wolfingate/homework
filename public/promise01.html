@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="info">
+    <p>123</p>
+</div>
+
+
+<script>
+    function func() {
+        return new Promise((resolve, reject)=>{
+            setTimeout(function(){
+                resolve(Math.random())
+            }, 500)
+        })
+    }
+
+    func()
+        .then(r=>{
+            info.innerHTML += `<p>${r}</p>`;
+            return func()
+        })
+        .then(r=>{
+            info.innerHTML += `<p>${r}</p>`;
+        })
+
+
+    const str = '{"a":1,"b":"david"}';
+
+    console.log('aaaa')
+    let obj = {};
+    try {
+        obj = JSON.parse(str)
+        console.log('---', obj)
+    } catch (ex){
+        console.log('ex:', ex)
+    }
+    console.log(obj)
+
+</script>
+
+</body>
+</html>

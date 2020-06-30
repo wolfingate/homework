@@ -1,0 +1,96 @@
+<%- include('../parts/html-head') %>
+<%- include('../parts/navbar') %>
+
+
+<div class="container">
+    <div id="infobar" class="alert alert-success" role="alert" style="display:none">
+        
+
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card" style="width: 30rem;">
+                <div class="card-body">
+                    <h5 class="card-title">修改資料</h5>
+                    <form name='form1' method="post" onsubmit="return checkForm()">
+                        <input type="hidden" name="sid" value="<%= row.sid %>">
+                        <div class="form-group">
+                            <label for="name">姓名*:</label>
+                            <input type="text" class="form-control" id="name" name="name" required
+                            value="<%= row.name %>">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="email">信箱:</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                            value="<%= row.email %>">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile">手機:</label>
+                            <input type="text" class="form-control" id="mobile" name="mobile"
+                                pattern="^09\d{2}-?\d{3}-?\d{3}$"
+                                value="<%= row.mobile %>">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="birthday">生日*:</label>
+                            <input type="date" class="form-control" id="birthday" name="birthday" required
+                            value="<%= row.birthday %>">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="address">地址:</label>
+                            <textarea class="form-control" id="address" name="address" cols="30" rows="5"
+                            ><%= row.address %></textarea>
+
+                        </div>
+                        <button type="submit" class="btn btn-primary">修改</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../parts/scripts') %>
+
+<script>
+    const email_pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    const email = $('#email');
+    const infobar = $('#infobar');
+
+
+    function checkForm() {
+        // if( ! email_pattern.test(email.val())){
+        //     alert('Email 格式不符');
+        //     return false;
+
+        // };  
+
+        // TODO: 檢查欄位的格式
+        $.post('/address-book/edit', $(document.form1).serialize(), function (data) {
+            console.log(data);
+            if (data.success) {
+                infobar.text('修改成功');
+                infobar.removeClass('alert-danger').addClass('alert-success');
+                setTimeout(function () {
+                    location.href = '/address-book/list';
+                }, 3000);
+            }
+            else {
+                infobar.text(data.error || '沒有修改');
+                infobar.removeClass('alert-success').addClass('alert-danger');
+                setTimeout(function () {
+                    infobar.slideUp();
+                }, 3000);
+            }
+            infobar.slideDown();
+        
+          }, 'json');
+
+    return false;   
+    };
+</script>
+
+<%- include('../parts/html-foot') %>
